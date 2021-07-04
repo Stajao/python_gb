@@ -15,6 +15,8 @@ from abc import ABC, abstractmethod
 
 
 class Clothes(ABC):
+    result = 0
+
     def __init__(self, V, H):
         self.V = V
         self.H = H
@@ -22,6 +24,15 @@ class Clothes(ABC):
     @abstractmethod
     def consumption_fabr(self):
         pass
+
+    def __add__(self, other):
+        Clothes.result += self.consumption_fabr() + other.consumption_fabr()
+        return Suit(0)
+
+    def __str__(self):
+        res = Clothes.result
+        Clothes.result = 0
+        return f'{res}'
 
 
 class Coat(Clothes):
@@ -73,3 +84,5 @@ print(coat1.consumption_fabr())
 suit1 = Suit(250)
 print(suit1.H)
 print(suit1.consumption_fabr())
+
+print(coat1 + suit1)
